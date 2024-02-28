@@ -11,9 +11,6 @@ import PropVivoTopBar from "@/components/ion/PropVivoTopBar";
 import { ColumnDef } from "@tanstack/react-table";
 import Table from "@/components/ion/Table";
 import Pagination from "@/components/ion/Pagination";
-import Sheet from "@/components/Sheet";
-import { TagChevron } from "@phosphor-icons/react";
-import SheetContentForm from "@/components/ion/SheetContentForm";
 
 function PropvivoIon() {
    function travisScottAssociationClickHandler(
