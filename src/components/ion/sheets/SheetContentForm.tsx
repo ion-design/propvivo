@@ -14,6 +14,7 @@ function SheetContentForm() {
    const [glCode, setGlCode] = useState("");
    const [subHeaderStartRange, setSubHeaderStartRange] = useState("");
    const [subHeaderEndRange, setSubHeaderEndRange] = useState("");
+
    return (
       <div className="w-full h-full flex-col flex gap-6 ">
          <div className="w-full flex-col flex gap-1 font-semibold">
@@ -54,7 +55,7 @@ function SheetContentForm() {
             <Label required={true}>Is Parent</Label>
             <RadioGroup orientation="horizontal">
                <div className="flex items-start gap-2">
-                  <Radio label="Yes" value="Yes" />
+                  <Radio label="Yes" value="yes" />
                   <Radio label="No" value="No" />
                </div>
             </RadioGroup>
