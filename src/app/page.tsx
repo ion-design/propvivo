@@ -43,7 +43,7 @@ function PropvivoIon() {
                         column.toggleSorting(column.getIsSorted() === "asc")
                      }
                   >
-                     <h4>Legal Entities</h4>
+                     <div>Legal Entities</div>
                      <CaretUpDown
                         size={16}
                         className="stroke-sub-foreground"
@@ -70,7 +70,7 @@ function PropvivoIon() {
                         column.toggleSorting(column.getIsSorted() === "asc")
                      }
                   >
-                     <h4>Code</h4>
+                     <div>Code</div>
                      <CaretUpDown
                         size={16}
                         className="stroke-sub-foreground"
@@ -88,7 +88,7 @@ function PropvivoIon() {
                         column.toggleSorting(column.getIsSorted() === "asc")
                      }
                   >
-                     <h4>COA</h4>
+                     <div>COA</div>
                      <CaretUpDown
                         size={16}
                         className="stroke-sub-foreground"
@@ -108,7 +108,7 @@ function PropvivoIon() {
                         column.toggleSorting(column.getIsSorted() === "asc")
                      }
                   >
-                     <h4>Mapped On</h4>
+                     <div>Mapped On</div>
                      <CaretUpDown
                         size={16}
                         className="stroke-sub-foreground"
@@ -134,7 +134,7 @@ function PropvivoIon() {
                         column.toggleSorting(column.getIsSorted() === "asc")
                      }
                   >
-                     <h4>Mapped By</h4>
+                     <div>Mapped By</div>
                      <CaretUpDown
                         size={16}
                         className="stroke-sub-foreground"
@@ -152,7 +152,7 @@ function PropvivoIon() {
                         column.toggleSorting(column.getIsSorted() === "asc")
                      }
                   >
-                     <h4>Service Start Date</h4>
+                     <div>Service Start Date</div>
                      <CaretUpDown
                         size={16}
                         className="stroke-sub-foreground"
@@ -178,7 +178,7 @@ function PropvivoIon() {
                         column.toggleSorting(column.getIsSorted() === "asc")
                      }
                   >
-                     <h4>Service End Date</h4>
+                     <div>Service End Date</div>
                      <CaretUpDown
                         size={16}
                         className="stroke-sub-foreground"
@@ -196,7 +196,7 @@ function PropvivoIon() {
                         column.toggleSorting(column.getIsSorted() === "asc")
                      }
                   >
-                     <h4>Legal Entity Status</h4>
+                     <div>Legal Entity Status</div>
                      <CaretUpDown
                         size={16}
                         className="stroke-sub-foreground"

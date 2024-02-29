@@ -1,5 +1,5 @@
 "use client";
-// ion/Pagination: Generated with Ion on 2/28/2024, 10:56:27 AM
+// ion/Pagination: Generated with Ion on 2/28/2024, 7:04:19 PM
 import * as React from "react";
 
 import {
@@ -11,7 +11,8 @@ import {
 } from "@phosphor-icons/react";
 import clsx from "clsx";
 import { cva } from "class-variance-authority";
-import Select from "./Select";
+import Select from "@/components/ion/Select";
+import { twMerge } from "tailwind-merge";
 
 const classNames = cva(
   [
@@ -22,12 +23,14 @@ const classNames = cva(
     "disabled:pointer-events-none",
     "transition-colors",
     "select-none",
+    "border-sub-stroke",
+    "text-sub-foreground",
   ],
   {
     variants: {
       color: {
-        primary: "focus:primary-focus border hover:bg-primary-lightest",
-        secondary: "focus:secondary-focus border hover:bg-secondary-lightest",
+        primary: "focus:primary-focus hover:bg-primary-lightest",
+        secondary: "focus:secondary-focus hover:bg-secondary-lightest",
       },
       size: {
         sm: "h-7 w-7 text-sm",
@@ -39,7 +42,7 @@ const classNames = cva(
         false: "",
       },
       bordered: {
-        true: "",
+        true: "border",
         false: "",
       },
       disabled: {
@@ -51,22 +54,12 @@ const classNames = cva(
       {
         color: "primary",
         isActive: true,
-        className: ["text-primary", "border-primary-light"],
+        className: ["text-primary", "border-primary-light", "border"],
       },
       {
         color: "secondary",
         isActive: true,
-        className: ["text-secondary", "border-secondary-light"],
-      },
-      {
-        color: "primary",
-        bordered: true,
-        className: ["border-sub-stroke"],
-      },
-      {
-        color: "secondary",
-        bordered: true,
-        className: ["border-secondary-light"],
+        className: ["text-secondary-darker", "border-secondary-dark", "border"],
       },
     ],
   }
@@ -108,6 +101,7 @@ PaginationItem.displayName = "PaginationItem";
 type PaginationLinkProps = {
   isActive?: boolean;
   disabled?: boolean;
+  bordered?: boolean;
 } & Pick<PaginationProps, "size" | "color"> &
   React.ComponentProps<"a">;
 
@@ -117,18 +111,27 @@ const PaginationLink = ({
   size,
   color,
   disabled,
+  bordered,
   ...props
 }: PaginationLinkProps) => (
   <a
     aria-current={isActive ? "page" : undefined}
-    className={clsx(
-      classNames({ color, size: size, isActive: isActive, disabled }),
-      {
-        "h-7 text-xs": size === "sm",
-        "h-8": size === "md",
-        "h-10": size === "lg",
-      },
-      className
+    className={twMerge(
+      clsx(
+        classNames({
+          color,
+          size: size,
+          isActive: isActive,
+          disabled,
+          bordered,
+        }),
+        {
+          "h-7 text-xs": size === "sm",
+          "h-8": size === "md",
+          "h-10": size === "lg",
+        },
+        className
+      )
     )}
     aria-disabled={disabled}
     {...props}
@@ -229,6 +232,7 @@ type PaginationProps = React.ComponentProps<"nav"> & {
   totalPages?: number;
   defaultPageSize?: 10 | 20 | 50 | 100;
   onRowsPerPageChange?: (rows: 10 | 20 | 50 | 100) => any;
+  bordered?: boolean;
 };
 
 export default function Pagination({
@@ -238,11 +242,14 @@ export default function Pagination({
   defaultPage = 1,
   onPageChange,
   totalPages = 5,
-  defaultPageSize,
+  defaultPageSize = 10,
   onRowsPerPageChange,
+  bordered = true,
   ...props
 }: PaginationProps) {
-  const [currentPage, setCurrentPage] = React.useState(defaultPage);
+  const [currentPage, setCurrentPage] = React.useState(
+    Math.max(1, Math.min(defaultPage, totalPages))
+  );
   const isPreviousEllipsis = currentPage - 3 > 1;
   const isNextEllipsis = currentPage + 3 < totalPages;
   const showEllipsis = totalPages > 7;
@@ -257,6 +264,7 @@ export default function Pagination({
               color={color}
               type={"previous"}
               disabled={currentPage === 1}
+              onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
             />
           </PaginationItem>
           <PaginationItem>
@@ -265,6 +273,7 @@ export default function Pagination({
               color={color}
               onClick={() => setCurrentPage(1)}
               isActive={currentPage === 1}
+              bordered={bordered}
             >
               1
             </PaginationLink>
@@ -276,10 +285,10 @@ export default function Pagination({
               <PaginationEllipsis color={color} type={"previous"} />
             </PaginationItem>
           )}
-          {totalPages > 1 &&
-            Array(totalPages > 7 ? 5 : totalPages - 2)
-              .fill(null)
-              .map((_, index) => {
+          {totalPages &&
+            Array.from(
+              { length: totalPages > 7 ? 5 : totalPages - 2 },
+              (_, index) => {
                 const isAtBeginning = currentPage - 3 <= 1;
                 const isAtEnd = currentPage + 3 > totalPages;
                 const page = !showEllipsis
@@ -298,12 +307,14 @@ export default function Pagination({
                       isActive={currentPage === page}
                       size={size}
                       color={color}
+                      bordered={bordered}
                     >
                       {page}
                     </PaginationLink>
                   </PaginationItem>
                 );
-              })}
+              }
+            )}
 
           {showEllipsis && isNextEllipsis && (
             <PaginationItem
@@ -320,6 +331,7 @@ export default function Pagination({
               size={size}
               color={color}
               isActive={currentPage === totalPages}
+              bordered={bordered}
             >
               {totalPages}
             </PaginationLink>
@@ -330,12 +342,14 @@ export default function Pagination({
               size={size}
               color={color}
               disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(currentPage + 1)}
+              onClick={() =>
+                setCurrentPage(Math.min(totalPages, currentPage + 1))
+              }
             />
           </PaginationItem>
         </PaginationContent>
       </PaginationNavigation>
-      {defaultPageSize && (
+      {onRowsPerPageChange && (
         <Select
           className={clsx("w-20 border-weak-stroke", {
             "w-16": size === "sm" || size === "md",
