@@ -1,4 +1,4 @@
-// Generated with Ion on 2/28/2024, 7:40:36 PM
+// Generated with Ion on 2/28/2024, 7:42:30 PM
 // Figma Link: https://www.figma.com/file/Qohyu8a8oaVqtDvIRuY120?node-id=3157:37180
 import UploadStatusItem from "@/components/ion/UploadStatusItem";
 import clsx from "clsx";
@@ -6,7 +6,7 @@ type ExcelUploadModalContentProps = {
   className?: string;
 };
 
-function ExcelUploadModalContent({
+function UploadingSheet({
   className = "",
 }: ExcelUploadModalContentProps) {
   return (
@@ -18,4 +18,4 @@ function ExcelUploadModalContent({
     </div>
   );
 }
-export default ExcelUploadModalContent;
+export default UploadingSheet;

@@ -26,7 +26,8 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "lucide-react": "^0.343.0",
-    "@radix-ui/react-select": "^2.0.0"
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-progress": "^1.0.3"
   },
   "devDependencies": {
     "@types/node": "^20",

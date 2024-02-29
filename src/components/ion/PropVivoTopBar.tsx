@@ -20,6 +20,8 @@ import UpdateDetailsConfirmationModal from "./modals/UpdateDetailsConfirmationMo
 import SuccessConfirmationModal from "./modals/SuccessConfirmationModal";
 import CannotDeleteModal from "./modals/CannotDeleteModal";
 import ChartOfAccountsSheet from "./sheets/ChartOfAccountsSheet";
+import BulkUploadSheet from "./sheets/BulkUploadSheet";
+import UploadingSheet from "./sheets/UploadingSheet";
 type PropVivoTopBarProps = {
    className?: string;
 };
@@ -28,6 +30,8 @@ function PropVivoTopBar({ className = "" }: PropVivoTopBarProps) {
    const [inputValue, setInputValue] = useState("");
    const [chartSheetOpen, setChartSheetOpen] = useState(false);
    const [editSheetOpen, setEditSheetOpen] = useState(false);
+   const [bulkUploadSheetOpen, setBulkUploadSheetOpen] = useState(false);
+   const [uploadingSheetOpen, setUploadingSheetOpen] = useState(false);
 
    function createNewClickHandler(e: MouseEvent<HTMLButtonElement>) {
       setChartSheetOpen(true);
@@ -36,6 +40,11 @@ function PropVivoTopBar({ className = "" }: PropVivoTopBarProps) {
       setChartSheetOpen(false);
       setEditSheetOpen(true);
    }
+   function submitClickHandler(e: MouseEvent<HTMLButtonElement>) {
+      setBulkUploadSheetOpen(false);
+      setUploadingSheetOpen(true);
+   }
+
    function buttonOnClickHandler(e: MouseEvent<HTMLButtonElement>) {
       alert("buttonOnClickHandler fired");
    }
@@ -62,6 +71,27 @@ function PropVivoTopBar({ className = "" }: PropVivoTopBarProps) {
                footer={<Button onClick={editClickHandler} className="w-full">Edit</Button>}
             >
                <ChartOfAccountsSheet />
+            </Sheet>
+            <Sheet
+               onOpenChange={setBulkUploadSheetOpen}
+               open={bulkUploadSheetOpen}
+               title="Bulk Upload Chart of Accounts Line Items"
+               footer={
+                  <div className="w-full flex gap-2">
+                     <Button color="secondary" emphasis="medium" className="w-full">Cancel</Button>
+                     <Button className="w-full" onClick={submitClickHandler}>Submit</Button>
+                  </div>
+               }
+            >
+               <BulkUploadSheet />
+            </Sheet>
+            <Sheet
+               onOpenChange={setUploadingSheetOpen}
+               open={uploadingSheetOpen}
+               title="Bulk Upload Chart of Accounts Line Items"
+               footer={<Button className="w-full" color="secondary" emphasis="medium">Cancel</Button>}
+            >
+               <UploadingSheet />
             </Sheet>
             <Input
                iconTrailing={<MagnifyingGlass size={16} weight={"regular"} />}
@@ -111,7 +141,7 @@ function PropVivoTopBar({ className = "" }: PropVivoTopBarProps) {
                emphasis="low"
                color="secondary"
                size="sm"
-               onClick={buttonOnClickHandler}
+               onClick={() => setBulkUploadSheetOpen(true)}
             />
             <Button
                iconLeading={<Notification size={16} weight={"bold"} />}
