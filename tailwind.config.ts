@@ -127,5 +127,6 @@ const config: Config = {
       `ui-selected:text-${customColor}`,
     ]),
   ],
+  darkMode: "class",
 };
 export default config;
