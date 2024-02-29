@@ -16,6 +16,9 @@ import Avatar from "@/components/ion/Avatar";
 import clsx from "clsx";
 import Sheet from "../Sheet";
 import SheetContentForm from "./SheetContentForm";
+import UpdateDetailsConfirmationModal from "./modals/UpdateDetailsConfirmationModal";
+import SuccessConfirmationModal from "./modals/SuccessConfirmationModal";
+import CannotDeleteModal from "./modals/CannotDeleteModal";
 type PropVivoTopBarProps = {
    className?: string;
 };
@@ -26,12 +29,6 @@ function PropVivoTopBar({ className = "" }: PropVivoTopBarProps) {
 
    function createNewClickHandler(e: MouseEvent<HTMLButtonElement>) {
       setOpen(true);
-   }
-   function paymentClickHandler(e: MouseEvent<HTMLButtonElement>) {
-      alert("paymentClickHandler fired");
-   }
-   function approvalsClickHandler(e: MouseEvent<HTMLButtonElement>) {
-      alert("approvalsClickHandler fired");
    }
    function buttonOnClickHandler(e: MouseEvent<HTMLButtonElement>) {
       alert("buttonOnClickHandler fired");
@@ -69,29 +66,32 @@ function PropVivoTopBar({ className = "" }: PropVivoTopBarProps) {
             </Button>
          </div>
          <div className="flex items-center gap-5">
-            <Button
-               emphasis="low"
-               color="secondary"
-               size="sm"
-               onClick={paymentClickHandler}
-            >
-               Payment
-            </Button>
-            <Button
-               emphasis="low"
-               color="secondary"
-               size="sm"
-               onClick={approvalsClickHandler}
-            >
-               Approvals
-            </Button>
-            <Button
-               iconLeading={<Calendar size={16} weight={"bold"} />}
-               emphasis="low"
-               color="secondary"
-               size="sm"
-               onClick={buttonOnClickHandler}
-            />
+            <UpdateDetailsConfirmationModal>
+               <Button
+                  emphasis="low"
+                  color="secondary"
+                  size="sm"
+               >
+                  Payment
+               </Button>
+            </UpdateDetailsConfirmationModal>
+            <SuccessConfirmationModal>
+               <Button
+                  emphasis="low"
+                  color="secondary"
+                  size="sm"
+               >
+                  Approvals
+               </Button>
+            </SuccessConfirmationModal>
+            <CannotDeleteModal>
+               <Button
+                  iconLeading={<Calendar size={16} weight={"bold"} />}
+                  emphasis="low"
+                  color="secondary"
+                  size="sm"
+               />
+            </CannotDeleteModal>
             <Button
                iconLeading={<ChatCenteredDots size={16} weight={"bold"} />}
                emphasis="low"
